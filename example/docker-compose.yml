@@ -1,12 +1,10 @@
 version: "3.8"
 services:
   digipoort:
-    #build: ./example/ebms-adapter-digipoort
-    image: ebms-adapter-digipoort
+    image: ebms/ebms-adapter-digipoort:2.17.1.1
     ports:
       - "8080:8080"
   overheid:
-    #build: ./example/ebms-adapter-overheid
-    image: ebms-adapter-overheid
+    image: ebms/ebms-adapter-overheid:2.17.1.1
     ports:
       - "8000:8080"
