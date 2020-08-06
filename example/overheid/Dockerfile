@@ -1,5 +1,5 @@
 ARG EBMS_VERSION=2.17.1.1
-FROM ebms/ebms-adapter-bin:${EBMS_VERSION}
+FROM ebms-adapter-bin:${EBMS_VERSION}
 ENV EBMS_VERSION=2.17.1.1
 RUN mkdir hsqldb && \
 printf "ebms.ssl=true\nkeystore.type=PKCS12\nhttps.verifyHostnames=false" > ebms-admin.embedded.properties && \

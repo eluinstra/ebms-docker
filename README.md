@@ -1,12 +1,5 @@
 Build and run example:
-export EBMS_VERSION=2.17.1.1
-cd ebms-adapter-bin
-docker build -t ebms/ebms-adapter-bin:${EBMS_VERSION} .
-cd ../example/digipoort
-docker build -t ebms/ebms-adapter-digipoort:${EBMS_VERSION} .
-cd ../overheid
-docker build -t ebms/ebms-adapter-overheid:${EBMS_VERSION} .
-cd ..
+cd example
 docker-compose up
 
 open http://localhost:8080/wicket/bookmarkable/nl.clockwork.ebms.admin.web.service.cpa.CPAsPage in your browser and upload cpa cpa.xml (from the example directory)
