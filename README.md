@@ -1,8 +1,8 @@
-Build and run example:
-cd example
+Build and run example:  
+cd example  
 docker-compose up
 
-open http://localhost:8080/wicket/bookmarkable/nl.clockwork.ebms.admin.web.service.cpa.CPAsPage in your browser and upload cpa cpa.xml (from the example directory)
+open http://localhost:8080/wicket/bookmarkable/nl.clockwork.ebms.admin.web.service.cpa.CPAsPage in your browser and upload cpa cpa.xml (from the example directory)  
 open http://localhost:8000/wicket/bookmarkable/nl.clockwork.ebms.admin.web.service.cpa.CPAsPage in your browser and upload cpa cpa.xml (from the example directory)
 
 - next from the digipoort console you can:
