@@ -1,6 +1,6 @@
 FROM openjdk:8-jre-alpine
-ARG EBMS_VERSION="2.17.1.1"
-ENV WORKDIR="/home/user"
+ARG EBMS_VERSION=2.17.2
+ENV WORKDIR /home/user
 LABEL maintainer="eluinstra@luin.dev" \
 version=$EBMS_VERSION
 WORKDIR $WORKDIR
