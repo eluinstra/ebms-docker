@@ -1,14 +1,12 @@
-FROM ebms-adapter-bin:2.17.2
-ENV EBMS_VERSION 2.17.2
-ENV https.verifyHostnames false
-ENV ebms.jdbc.update true
-RUN mkdir hsqldb && \
-printf "" > ebms-admin.embedded.properties && \
-printf "#!/bin/sh\n" > start.sh && \
-printf "java -cp ebms-admin-${EBMS_VERSION}.jar nl.clockwork.ebms.admin.StartEmbedded \$@" >> start.sh && \
-#printf "java -Dlog4j.configurationFile=log4j2.xml -cp ebms-admin-${EBMS_VERSION}.jar nl.clockwork.ebms.admin.StartEmbedded \$@" >> start.sh && \
-chmod u+x start.sh
-EXPOSE 8080 8888
+FROM ebms-adapter-bin:2.17.3-M1
+ENV EBMS_VERSION 2.17.3-M1
+ENV EBMS_ARGS "-Dlog4j.configurationFile=log4j2.xml"
+ENV ebms_port 8088
+ENV https_verifyHostnames false
+ENV ebms_jdbc_update true
+ENV ebms_jdbc_url jdbc:hsqldb:hsql://localhost:9000/ebms
+RUN mkdir hsqldb
+EXPOSE 8000 8088
 ENTRYPOINT ["./start.sh"]
-CMD ["-hsqldb","-soap"]
+CMD ["-port","8000","-hsqldb","-soap"]
 #VOLUME $WORKDIR/hsqldb

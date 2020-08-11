@@ -1,10 +1,10 @@
 version: "3.8"
 services:
   digipoort:
-    image: eluinstra/ebms-adapter-digipoort:2.17.2
+    image: ebms-adapter-digipoort:2.17.3-M1
     ports:
       - "8080:8080"
   overheid:
-    image: eluinstra/ebms-adapter-overheid:2.17.2
+    image: ebms-adapter-overheid:2.17.3-M1
     ports:
-      - "8000:8080"
+      - "8000:8000"
