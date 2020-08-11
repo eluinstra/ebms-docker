@@ -10,7 +10,7 @@ adduser -S user -G user && \
 printf "" > ebms-admin.embedded.properties && \
 wget https://github.com/eluinstra/ebms-admin/releases/download/ebms-admin-${EBMS_VERSION}/ebms-admin-${EBMS_VERSION}.jar -O ebms-admin-${EBMS_VERSION}.jar && \
 printf "#!/bin/sh\n" > start.sh && \
-printf "java \$EBMS_ARGS -cp ebms-admin-${EBMS_VERSION}.jar nl.clockwork.ebms.admin.StartEmbedded \$@" >> start.sh && \
+printf "java \$JAVA_ARGS -cp ebms-admin-${EBMS_VERSION}.jar nl.clockwork.ebms.admin.StartEmbedded \$@" >> start.sh && \
 chmod u+x start.sh && \
 chown -R user:user $WORKDIR
 USER user:user

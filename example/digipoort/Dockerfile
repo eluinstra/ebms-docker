@@ -1,6 +1,6 @@
 FROM ebms-adapter-bin:2.17.3-M1
 ENV EBMS_VERSION 2.17.3-M1
-ENV EBMS_ARGS "-Dlog4j.configurationFile=log4j2.xml"
+ENV JAVA_ARGS "-Dlog4j.configurationFile=log4j2.xml"
 ENV https_verifyHostnames false
 ENV ebms_jdbc_update true
 RUN mkdir hsqldb

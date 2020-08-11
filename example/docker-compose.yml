@@ -8,3 +8,4 @@ services:
     image: ebms-adapter-overheid:2.17.3-M1
     ports:
       - "8000:8000"
+      - "61616:61616"
