@@ -11,6 +11,6 @@ RUN mkdir hsqldb && \
 mkdir data
 EXPOSE 8000 8088 61616
 ENTRYPOINT ["./start.sh"]
-CMD ["-port","8000","-hsqldb","-soap"]
+CMD ["-port","8000","-ssl","-hsqldb","-soap"]
 #VOLUME $WORKDIR/hsqldb
 #VOLUME $WORKDIR/data
