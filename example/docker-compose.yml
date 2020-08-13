@@ -9,3 +9,13 @@ services:
     ports:
       - "8000:8000"
       - "61616:61616"
+    links:
+      - postgres
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ebms
