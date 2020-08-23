@@ -1,5 +1,5 @@
 Build and run example:  
-cd example  
+cd examples/demo  
 docker-compose up
 
 open http://localhost:8080/wicket/bookmarkable/nl.clockwork.ebms.admin.web.service.cpa.CPAsPage in your browser and upload cpa cpa.xml (from the example directory)  
