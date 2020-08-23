@@ -15,7 +15,6 @@ printf "java \$JAVA_ARGS -cp ebms-admin-${EBMS_VERSION}.jar nl.clockwork.ebms.ad
 chmod u+x start.sh && \
 chown -R user:user $WORKDIR
 USER user:user
-#VOLUME $WORKDIR/logs
-#EXPOSE 8080 8888
 #ENTRYPOINT ["./start.sh"]
+#EXPOSE 8080 8888
 
