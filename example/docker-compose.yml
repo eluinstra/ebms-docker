@@ -21,3 +21,7 @@ services:
       POSTGRES_USER: ebms
       POSTGRES_PASSWORD: ebms
       POSTGRES_DB: ebms
+    volumes:
+      - ./postgres.conf:/etc/postgresql/postgresql.conf
+      #- ./data:/var/lib/postgresql/data
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf

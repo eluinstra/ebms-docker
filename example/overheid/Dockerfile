@@ -5,10 +5,14 @@ ENV JAVA_ARGS "-Dlog4j.configurationFile=log4j2.xml"
 ENV CLASSPATH "postgresql-42.2.14.jar:"
 ENV ebms_port 8088
 ENV https_verifyHostnames false
+ENV cache_type IGNITE
 ENV jms_broker_start true
+ENV transactionManager_type ATOMIKOS
+ENV eventProcessor_type JMS
+ENV deliveryManager_type JMS
 ENV eventListener_type=JMS
 ENV ebms_jdbc_update true
-ENV ebms_jdbc_driverClassName org.postgresql.Driver
+ENV ebms_jdbc_driverClassName org.postgresql.xa.PGXADataSource
 ENV ebms_jdbc_url jdbc:postgresql://postgres:5432/ebms
 ENV ebms_jdbc_username ebms
 ENV ebms_jdbc_password ebms

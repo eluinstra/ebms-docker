@@ -13,6 +13,9 @@ docker build -t ${REPO}ebms-adapter-digipoort:$EBMS_VERSION .
 cd $BASE_DIR/overheid/
 docker build -t ${REPO}ebms-adapter-overheid:$EBMS_VERSION .
 
+# docker run -i --rm postgres cat /usr/share/postgresql/postgresql.conf.sample > postgres.conf
+# enable max_prepared_transactions and set to 64
+
 # cd ~/ebms/example/
 # docker-compose up
 
