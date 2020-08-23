@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  digipoort:
+    image: eluinstra/ebms-adapter-digipoort:latest
+    ports:
+      - "8080:8080"
+  overheid:
+    image: eluinstra/ebms-adapter-overheid-pg:latest
+    ports:
+      - "8000:8443"
+      - "61616:61616"
+    depends_on:
+      - postgres
+    links:
+      - postgres
+  postgres:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: ebms
+      POSTGRES_PASSWORD: ebms
+      POSTGRES_DB: ebms
+    # ports:
+    #   - "5432:5432"
+    # volumes:
+    #   - ./data:/var/lib/postgresql/data
