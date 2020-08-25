@@ -1,9 +1,12 @@
-Build and run example:  
-cd examples/demo  
-docker-compose up
+Build and run example:
 
-open http://localhost:8080/wicket/bookmarkable/nl.clockwork.ebms.admin.web.service.cpa.CPAsPage in your browser and upload cpa cpa.xml (from the examples directory)  
-open http://localhost:8000/wicket/bookmarkable/nl.clockwork.ebms.admin.web.service.cpa.CPAsPage in your browser and upload cpa cpa.xml (from the examples directory)
+```
+cd examples/demo
+docker-compose up
+```
+
+open http://localhost:8080/wicket/bookmarkable/nl.clockwork.ebms.admin.web.service.cpa.CPAsPage in your browser and upload cpa examples/cpa.xml  
+open http://localhost:8000/wicket/bookmarkable/nl.clockwork.ebms.admin.web.service.cpa.CPAsPage in your browser and upload cpa examples/cpa.xml
 
 - next from the digipoort console you can:
 	- execute a ping the overheid adapter at http://localhost:8080/wicket/bookmarkable/nl.clockwork.ebms.admin.web.service.message.PingPage
