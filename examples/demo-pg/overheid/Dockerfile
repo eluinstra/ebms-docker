@@ -4,7 +4,7 @@ ENV JAVA_ARGS "-Dlog4j.configurationFile=log4j2.xml"
 ENV CLASSPATH "${POSTGRES_DRIVER}:"
 ENV https_verifyHostnames false
 ENV jms_broker_start true
-ENV eventListener_type=JMS
+ENV eventListener_type JMS
 ENV ebms_jdbc_update true
 ENV ebms_jdbc_driverClassName org.postgresql.Driver
 ENV ebms_jdbc_url jdbc:postgresql://postgres:5432/ebms

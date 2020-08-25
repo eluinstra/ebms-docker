@@ -1,7 +1,15 @@
 version: "3.8"
 services:
   digipoort:
-    image: eluinstra/ebms-adapter-digipoort:latest
+    image: eluinstra/ebms-adapter-bin:latest
+    environment:
+      JAVA_ARGS: "-Dlog4j.configurationFile=log4j2.xml"
+      https_verifyHostnames: "false"
+      ebms_jdbc_update: "true"
+    entrypoint: ["./start.sh","-hsqldb","-soap"]
+    expose:
+      - 8080
+      - 8888
     ports:
       - "8080:8080"
   overheid:
