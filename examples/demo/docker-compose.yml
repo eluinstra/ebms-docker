@@ -3,7 +3,6 @@ services:
   digipoort:
     image: eluinstra/ebms-adapter-bin:latest
     environment:
-      JAVA_ARGS: "-Dlog4j.configurationFile=log4j2.xml"
       https_verifyHostnames: "false"
       ebms_jdbc_update: "true"
     entrypoint: ["./start.sh","-hsqldb","-soap"]
@@ -15,7 +14,6 @@ services:
   overheid:
     image: eluinstra/ebms-adapter-bin:latest
     environment:
-      JAVA_ARGS: "-Dlog4j.configurationFile=log4j2.xml"
       https_verifyHostnames: "false"
       ebms_jdbc_update: "true"
     entrypoint: ["./start.sh","-hsqldb","-soap"]
