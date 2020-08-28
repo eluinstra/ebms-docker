@@ -29,8 +29,6 @@ services:
       - "8000:8443"
     depends_on:
       - postgres
-    links:
-      - postgres
   postgres:
     image: postgres:12
     environment:

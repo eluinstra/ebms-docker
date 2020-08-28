@@ -34,9 +34,6 @@ services:
     depends_on:
       - activemq
       - postgres
-    links:
-      - activemq
-      - postgres
   client:
     image: eluinstra/ebms-adapter-pg:latest
     environment:
@@ -58,9 +55,6 @@ services:
     depends_on:
       - activemq
       - postgres
-    links:
-      - activemq
-      - postgres
   api:
     image: eluinstra/ebms-adapter-pg:latest
     environment:
@@ -78,7 +72,6 @@ services:
       ebms_jdbc_password: "ebms"
       ebms_pool_minPoolSize: "4"
       ebms_pool_maxPoolSize: "4"
-    # -soap -disableEbMSServer -disableEbMSClient
     entrypoint: ["./start.sh","-ssl","-soap","-disableEbMSServer","-disableEbMSClient"]
     expose:
       - 8443
@@ -87,13 +80,10 @@ services:
     depends_on:
       - activemq
       - postgres
-    links:
-      - activemq
-      - postgres
   activemq:
     image: eluinstra/activemq:latest
     volumes:
-      - ./activemq.xml:/home/user/activemq/conf/activemq.xml
+      - ./activemq.xml:/home/user/activemq/conf/activemq.xml:ro
     ports:
       - "8161:8161"
       # - "61616:61616"
@@ -108,6 +98,6 @@ services:
     # ports:
     #   - "5432:5432"
     volumes:
-      - ./postgres.conf:/etc/postgresql/postgresql.conf
+      - ./postgres.conf:/etc/postgresql/postgresql.conf:ro
       # - ./data:/var/lib/postgresql/data
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
