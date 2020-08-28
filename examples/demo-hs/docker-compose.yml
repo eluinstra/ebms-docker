@@ -1,0 +1,113 @@
+version: "3.8"
+services:
+  digipoort:
+    image: eluinstra/ebms-adapter-bin:latest
+    environment:
+      https_verifyHostnames: "false"
+      ebms_jdbc_update: "true"
+    entrypoint: ["./start.sh","-hsqldb","-soap"]
+    expose:
+      - 8080
+      - 8888
+    ports:
+      - "8080:8080"
+  overheid:
+    image: eluinstra/ebms-adapter-pg:latest
+    environment:
+      https_verifyHostnames: "false"
+      cache_type: "IGNITE"
+      transactionManager_type: "ATOMIKOS"
+      eventProcessor_type: "JMS"
+      deliveryManager_type: "JMS"
+      eventListener_type: "JMS"
+      jms_brokerURL: "tcp://activemq:61616"
+      ebms_jdbc_update: "true"
+      ebms_jdbc_driverClassName: org.postgresql.xa.PGXADataSource
+      ebms_jdbc_url: "jdbc:postgresql://postgres:5432/ebms"
+      ebms_jdbc_username: "ebms"
+      ebms_jdbc_password: "ebms"
+      ebms_pool_minPoolSize: "4"
+      ebms_pool_maxPoolSize: "4"
+    entrypoint: ["./start.sh","-headless","-disableEbMSClient"]
+    expose:
+      - 8888
+    depends_on:
+      - activemq
+      - postgres
+    links:
+      - activemq
+      - postgres
+  client:
+    image: eluinstra/ebms-adapter-pg:latest
+    environment:
+      https_verifyHostnames: "false"
+      cache_type: "IGNITE"
+      transactionManager_type: "ATOMIKOS"
+      eventProcessor_type: "JMS"
+      deliveryManager_type: "JMS"
+      eventListener_type: "JMS"
+      jms_brokerURL: "tcp://activemq:61616"
+      ebms_jdbc_update: "true"
+      ebms_jdbc_driverClassName: org.postgresql.xa.PGXADataSource
+      ebms_jdbc_url: "jdbc:postgresql://postgres:5432/ebms"
+      ebms_jdbc_username: "ebms"
+      ebms_jdbc_password: "ebms"
+      ebms_pool_minPoolSize: "4"
+      ebms_pool_maxPoolSize: "4"
+    entrypoint: ["./start.sh","-headless","-disableEbMSServer"]
+    depends_on:
+      - activemq
+      - postgres
+    links:
+      - activemq
+      - postgres
+  api:
+    image: eluinstra/ebms-adapter-pg:latest
+    environment:
+      https_verifyHostnames: "false"
+      cache_type: "IGNITE"
+      transactionManager_type: "ATOMIKOS"
+      eventProcessor_type: "JMS"
+      deliveryManager_type: "JMS"
+      eventListener_type: "JMS"
+      jms_brokerURL: "tcp://activemq:61616"
+      ebms_jdbc_update: "true"
+      ebms_jdbc_driverClassName: org.postgresql.xa.PGXADataSource
+      ebms_jdbc_url: "jdbc:postgresql://postgres:5432/ebms"
+      ebms_jdbc_username: "ebms"
+      ebms_jdbc_password: "ebms"
+      ebms_pool_minPoolSize: "4"
+      ebms_pool_maxPoolSize: "4"
+    # -soap -disableEbMSServer -disableEbMSClient
+    entrypoint: ["./start.sh","-ssl","-soap","-disableEbMSServer","-disableEbMSClient"]
+    expose:
+      - 8443
+    ports:
+      - "8000:8443"
+    depends_on:
+      - activemq
+      - postgres
+    links:
+      - activemq
+      - postgres
+  activemq:
+    image: eluinstra/activemq:latest
+    volumes:
+      - ./activemq.xml:/home/user/activemq/conf/activemq.xml
+    ports:
+      - "8161:8161"
+      # - "61616:61616"
+    # volumes:
+    #   - ./data:/home/user/activemq/data
+  postgres:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: ebms
+      POSTGRES_PASSWORD: ebms
+      POSTGRES_DB: ebms
+    # ports:
+    #   - "5432:5432"
+    volumes:
+      - ./postgres.conf:/etc/postgresql/postgresql.conf
+      # - ./data:/var/lib/postgresql/data
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
