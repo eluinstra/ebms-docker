@@ -1,5 +1,5 @@
 FROM openjdk:8-jre-alpine
-ARG EBMS_VERSION=2.17.3
+ARG EBMS_VERSION=2.17.5
 ARG EBMS_ADMIN=ebms-admin-${EBMS_VERSION}
 ARG LOG4J2=log4j2.xml
 ARG START=start.sh
