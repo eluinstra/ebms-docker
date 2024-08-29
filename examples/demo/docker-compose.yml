@@ -1,22 +1,53 @@
-version: "3.8"
 services:
-  digipoort:
-    image: eluinstra/ebms-adapter-bin:latest
+  digipoort-postgres:
+    image: postgres:16
     environment:
-      https_verifyHostnames: "false"
+      POSTGRES_USER: ebms
+      POSTGRES_PASSWORD: ebms
+      POSTGRES_DB: ebms
+  digipoort:
+    image: eluinstra/ebms-adapter-pg:2.19
+    depends_on:
+      - digipoort-postgres
+    environment:
+      https_verifyHostnames: "true"
       ebms_jdbc_update: "true"
-    entrypoint: ["./start.sh","-hsqldb","-soap"]
+      ebms_jdbc_url: "jdbc:postgresql://digipoort-postgres:5432/ebms"
+      ebms_jdbc_username: "ebms"
+      ebms_jdbc_password: "ebms"
+    command: "./start.sh -soap"
     expose:
       - 8080
       - 8888
     ports:
       - "8080:8080"
-  overheid:
-    image: eluinstra/ebms-adapter-bin:latest
+  # digipoort_init:
+  #   image: busybox:latest
+  #   depends_on:
+  #     - digipoort
+  #   environment:
+  #     CPA_FILE: cpa.xml
+  #   entrypoint: ["sh", "-c"]
+  #   command: |
+  #     curl -L https://github.com/eluinstra/ebms-docker/blob/2.19.x/examples/cpa.xml -o $CPA_FILE
+  #     curl -X POST -H "Content-Type: text/plain" --data @${CPA_FILE} http://digipoort:8080/service/rest/v19/cpas?overwrite=true
+  overheid-postgres:
+    image: postgres:16
     environment:
-      https_verifyHostnames: "false"
+      POSTGRES_USER: ebms
+      POSTGRES_PASSWORD: ebms
+      POSTGRES_DB: ebms
+  overheid:
+    image: eluinstra/ebms-adapter-pg:2.19
+    depends_on:
+      - overheid-postgres
+    environment:
+      https_verifyHostnames: "true"
       ebms_jdbc_update: "true"
-    entrypoint: ["./start.sh","-hsqldb","-soap"]
+      ebms_jdbc_url: "jdbc:postgresql://overheid-postgres:5432/ebms"
+      ebms_jdbc_username: "ebms"
+      ebms_jdbc_password: "ebms"
+    command: "./start.sh -soap"
     expose:
       - 8080
       - 8888
