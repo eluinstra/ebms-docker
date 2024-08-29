@@ -1,4 +1,4 @@
-FROM ibm-semeru-runtimes:open-11-jre
+FROM ibm-semeru-runtimes:open-17-jre
 ARG EBMS_VERSION=
 ARG EBMS_ADMIN=ebms-admin-${EBMS_VERSION}
 ARG LOG4J2=log4j2.xml

@@ -13,6 +13,7 @@ docker build \
 
 cd $BASE_DIR/ebms-adapter-pg/
 docker build \
+  --build-arg EBMS_VERSION=${EBMS_VERSION} \
   --build-arg POSTGRES_DRIVER=postgresql-42.7.4.jar \
   -t ${REPO}ebms-adapter-pg:$EBMS_VERSION \
   -t ${REPO}ebms-adapter-pg:$EBMS_MAJOR_VERSION \
@@ -21,7 +22,7 @@ docker build \
 
 cd $BASE_DIR/activemq/
 docker build \
-  --build-arg ACTIVEMQ_VERSION=5.15.13 \
-  -t ${REPO}activemq:5.15.13 \
+  --build-arg ACTIVEMQ_VERSION=6.1.3 \
+  -t ${REPO}activemq:6.1.3 \
   -t ${REPO}activemq:latest \
   .

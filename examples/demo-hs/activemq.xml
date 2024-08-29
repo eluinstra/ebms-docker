@@ -27,11 +27,11 @@
         </property>
     </bean>
 
-   <!-- Allows accessing the server log -->
-    <bean id="logQuery" class="io.fabric8.insight.log.log4j.Log4jLogQuery"
+    <!-- Allows accessing the server log -->
+    <!--bean id="logQuery" class="io.fabric8.insight.log.log4j.Log4jLogQuery"
           lazy-init="false" scope="singleton"
           init-method="start" destroy-method="stop">
-    </bean>
+    </bean-->
 
     <!--
         The <broker> element is used to configure the ActiveMQ broker.

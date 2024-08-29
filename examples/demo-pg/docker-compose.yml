@@ -2,6 +2,7 @@ services:
   digipoort:
     image: eluinstra/ebms-adapter-bin:${EBMS_VERSION}
     environment:
+      ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
       ebms_jdbc_update: "true"
     command: "./start.sh -h2 -soap"
@@ -13,7 +14,9 @@ services:
   overheid:
     image: eluinstra/ebms-adapter-pg:${EBMS_VERSION}
     environment:
+      ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
+      cache_type: "DEFAULT"
       jms_broker_start: "true"
       eventListener_type: "JMS"
       ebms_jdbc_update: "true"
