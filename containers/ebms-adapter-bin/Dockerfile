@@ -13,6 +13,7 @@ RUN addgroup --system $USER && \
 adduser --system --ingroup $USER $USER && \
 apt update && \
 apt install zip -y && \
+touch ebms-admin.embedded.properties && \
 curl -OL https://github.com/eluinstra/ebms-admin/releases/download/${EBMS_ADMIN}/${EBMS_ADMIN}.jar && \
 unzip -p ${EBMS_ADMIN}.jar $LOG4J2 > $LOG4J2 && \
 sed -i 's/ref="File"/ref="Console"/g' $LOG4J2 && \

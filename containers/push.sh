@@ -5,3 +5,4 @@ export BASE_DIR=`dirname $(realpath $0)`
 
 docker image push -a ${REPO}ebms-adapter-bin
 docker image push -a ${REPO}ebms-adapter-pg
+docker image push -a ${REPO}activemq

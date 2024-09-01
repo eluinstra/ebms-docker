@@ -12,7 +12,7 @@ This project container Docker examples for different EbMS adapter configurations
 
 ```
 cd examples/demo
-docker-compose up
+docker compose up
 ```
 
 open http://localhost:8080/wicket/bookmarkable/nl.clockwork.ebms.admin.web.service.cpa.CPAsPage in your browser and upload cpa examples/cpa.xml  

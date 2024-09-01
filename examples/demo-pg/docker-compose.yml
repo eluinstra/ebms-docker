@@ -1,37 +1,26 @@
 services:
-  digipoort-postgres:
-    image: postgres:16
-    environment:
-      POSTGRES_USER: ebms
-      POSTGRES_PASSWORD: ebms
-      POSTGRES_DB: ebms
   digipoort:
-    image: eluinstra/ebms-adapter-pg:2.19
-    depends_on:
-      - digipoort-postgres
+    image: eluinstra/ebms-adapter-bin:${EBMS_VERSION}
     environment:
-      https_verifyHostnames: "true"
+      https_verifyHostnames: "false"
       ebms_jdbc_update: "true"
-      ebms_jdbc_url: "jdbc:postgresql://digipoort-postgres:5432/ebms"
-      ebms_jdbc_username: "ebms"
-      ebms_jdbc_password: "ebms"
-    entrypoint: ["./start.sh","-soap"]
+    command: "./start.sh -h2 -soap"
     expose:
       - 8080
       - 8888
     ports:
       - "8080:8080"
   overheid:
-    image: eluinstra/ebms-adapter-pg:2.19
+    image: eluinstra/ebms-adapter-pg:${EBMS_VERSION}
     environment:
-      https_verifyHostnames: "true"
+      https_verifyHostnames: "false"
       jms_broker_start: "true"
       eventListener_type: "JMS"
       ebms_jdbc_update: "true"
       ebms_jdbc_url: "jdbc:postgresql://postgres:5432/ebms"
       ebms_jdbc_username: "ebms"
       ebms_jdbc_password: "ebms"
-    entrypoint: ["./start.sh","-ssl","-soap"]
+    command: "./start.sh -ssl -soap"
     expose:
       - 8443
       - 8888

@@ -1,30 +1,19 @@
 services:
-  digipoort-postgres:
-    image: postgres:16
-    environment:
-      POSTGRES_USER: ebms
-      POSTGRES_PASSWORD: ebms
-      POSTGRES_DB: ebms
   digipoort:
-    image: eluinstra/ebms-adapter-pg:2.19
-    depends_on:
-      - digipoort-postgres
+    image: eluinstra/ebms-adapter-bin:${EBMS_VERSION}
     environment:
-      https_verifyHostnames: "true"
+      https_verifyHostnames: "false"
       ebms_jdbc_update: "true"
-      ebms_jdbc_url: "jdbc:postgresql://digipoort-postgres:5432/ebms"
-      ebms_jdbc_username: "ebms"
-      ebms_jdbc_password: "ebms"
-    entrypoint: ["./start.sh","-soap"]
+    command: "./start.sh -h2 -soap"
     expose:
       - 8080
       - 8888
     ports:
       - "8080:8080"
   overheid:
-    image: eluinstra/ebms-adapter-pg:2.19
+    image: eluinstra/ebms-adapter-pg:${EBMS_VERSION}
     environment:
-      https_verifyHostnames: "true"
+      https_verifyHostnames: "false"
       cache_type: "IGNITE"
       transactionManager_type: "ATOMIKOS"
       deliveryTaskHandler_type: "JMS"
@@ -38,16 +27,16 @@ services:
       ebms_jdbc_password: "ebms"
       ebms_pool_minPoolSize: "4"
       ebms_pool_maxPoolSize: "4"
-    entrypoint: ["./start.sh","-headless","-disableEbMSClient"]
+    command: "./start.sh -headless -disableEbMSClient"
     expose:
       - 8888
     depends_on:
       - activemq
       - postgres
   client:
-    image: eluinstra/ebms-adapter-pg:2.19
+    image: eluinstra/ebms-adapter-pg:${EBMS_VERSION}
     environment:
-      https_verifyHostnames: "true"
+      https_verifyHostnames: "false"
       cache_type: "IGNITE"
       transactionManager_type: "ATOMIKOS"
       deliveryTaskHandler_type: "JMS"
@@ -61,14 +50,14 @@ services:
       ebms_jdbc_password: "ebms"
       ebms_pool_minPoolSize: "4"
       ebms_pool_maxPoolSize: "4"
-    entrypoint: ["./start.sh","-headless","-disableEbMSServer"]
+    command: "./start.sh -headless -disableEbMSServer"
     depends_on:
       - activemq
       - postgres
   api:
-    image: eluinstra/ebms-adapter-pg:2.19
+    image: eluinstra/ebms-adapter-pg:${EBMS_VERSION}
     environment:
-      https_verifyHostnames: "true"
+      https_verifyHostnames: "false"
       cache_type: "IGNITE"
       transactionManager_type: "ATOMIKOS"
       deliveryTaskHandler_type: "JMS"
@@ -82,7 +71,7 @@ services:
       ebms_jdbc_password: "ebms"
       ebms_pool_minPoolSize: "4"
       ebms_pool_maxPoolSize: "4"
-    entrypoint: ["./start.sh","-ssl","-soap","-disableEbMSServer","-disableEbMSClient"]
+    command: "./start.sh -ssl -soap -disableEbMSServer -disableEbMSClient"
     expose:
       - 8443
     ports:
@@ -91,11 +80,15 @@ services:
       - activemq
       - postgres
   activemq:
-    image: apache/activemq-classic:5.18.4
+    # image: apache/activemq-classic:5.18.4
+    image: eluinstra/activemq:5.15.13
+    volumes:
+      - ./activemq.xml:/home/user/activemq/conf/activemq.xml:ro
     ports:
       - "8161:8161"
       # - "61616:61616"
     # volumes:
+    #   - ./data:/home/user/activemq/data
     #   - ./data:/opt/apache-activemq/data
   postgres:
     image: postgres:16
