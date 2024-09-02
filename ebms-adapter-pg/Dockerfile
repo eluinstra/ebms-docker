@@ -1,4 +1,4 @@
-FROM eluinstra/ebms-adapter-bin:latest
+FROM eluinstra/ebms-adapter-bin:2.18.0
 ARG POSTGRES_DRIVER=postgresql-42.2.14.jar
 ENV CLASSPATH "${POSTGRES_DRIVER}:"
 ENV ebms_jdbc_driverClassName org.postgresql.Driver
