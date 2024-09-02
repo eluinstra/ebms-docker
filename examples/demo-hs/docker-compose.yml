@@ -1,7 +1,6 @@
-version: "3.8"
 services:
   digipoort:
-    image: eluinstra/ebms-adapter-bin:latest
+    image: eluinstra/ebms-adapter-bin:2.17.5
     environment:
       https_verifyHostnames: "false"
       ebms_jdbc_update: "true"
@@ -12,7 +11,7 @@ services:
     ports:
       - "8080:8080"
   overheid:
-    image: eluinstra/ebms-adapter-pg:latest
+    image: eluinstra/ebms-adapter-pg:2.17.5
     environment:
       https_verifyHostnames: "false"
       cache_type: "IGNITE"
@@ -35,7 +34,7 @@ services:
       - activemq
       - postgres
   client:
-    image: eluinstra/ebms-adapter-pg:latest
+    image: eluinstra/ebms-adapter-pg:2.17.5
     environment:
       https_verifyHostnames: "false"
       cache_type: "IGNITE"
@@ -56,7 +55,7 @@ services:
       - activemq
       - postgres
   api:
-    image: eluinstra/ebms-adapter-pg:latest
+    image: eluinstra/ebms-adapter-pg:2.17.5
     environment:
       https_verifyHostnames: "false"
       cache_type: "IGNITE"
@@ -81,7 +80,7 @@ services:
       - activemq
       - postgres
   activemq:
-    image: eluinstra/activemq:latest
+    image: eluinstra/activemq:5.15.13
     volumes:
       - ./activemq.xml:/home/user/activemq/conf/activemq.xml:ro
     ports:

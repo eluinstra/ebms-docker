@@ -1,7 +1,6 @@
-version: "3.8"
 services:
   digipoort:
-    image: eluinstra/ebms-adapter-bin:latest
+    image: eluinstra/ebms-adapter-bin:2.17.5
     environment:
       https_verifyHostnames: "false"
       ebms_jdbc_update: "true"
@@ -12,7 +11,7 @@ services:
     ports:
       - "8080:8080"
   overheid:
-    image: eluinstra/ebms-adapter-bin:latest
+    image: eluinstra/ebms-adapter-bin:2.17.5
     environment:
       https_verifyHostnames: "false"
       ebms_jdbc_update: "true"
