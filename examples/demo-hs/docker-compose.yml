@@ -16,7 +16,7 @@ services:
     environment:
       ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
-      cache_type: "DEFAULT"
+      cache_type: "EHCACHE"
       transactionManager_type: "ATOMIKOS"
       deliveryTaskHandler_type: "JMS"
       deliveryManager_type: "JMS"
@@ -40,7 +40,7 @@ services:
     environment:
       ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
-      cache_type: "DEFAULT"
+      cache_type: "EHCACHE"
       transactionManager_type: "ATOMIKOS"
       deliveryTaskHandler_type: "JMS"
       deliveryManager_type: "JMS"
@@ -62,7 +62,7 @@ services:
     environment:
       ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
-      cache_type: "DEFAULT"
+      cache_type: "EHCACHE"
       transactionManager_type: "ATOMIKOS"
       deliveryTaskHandler_type: "JMS"
       deliveryManager_type: "JMS"

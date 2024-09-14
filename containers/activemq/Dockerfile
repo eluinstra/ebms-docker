@@ -6,8 +6,8 @@ ARG WORKDIR=/home/$USER
 LABEL maintainer="eluinstra@luin.dev"
 LABEL version=$ACTIVEMQ_VERSION
 WORKDIR $WORKDIR
-RUN addgroup --system $USER && \
-adduser --system --ingroup $USER $USER && \
+RUN groupadd --system $USER && \
+useradd --system -g $USER $USER && \
 touch ebms-admin.embedded.properties && \
 curl -OL https://archive.apache.org/dist/activemq/${ACTIVEMQ_VERSION}/${ACTIVEMQ}-bin.tar.gz && \
 tar xzf ${ACTIVEMQ}-bin.tar.gz && \

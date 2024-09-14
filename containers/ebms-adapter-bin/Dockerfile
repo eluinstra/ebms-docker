@@ -9,8 +9,8 @@ ENV JAVA_ARGS="-Dlog4j.configurationFile=$LOG4J2"
 LABEL maintainer="eluinstra@luin.dev"
 LABEL version=nl.clockwork.ebms.admin.version=$EBMS_VERSION
 WORKDIR $WORKDIR
-RUN addgroup --system $USER && \
-adduser --system --ingroup $USER $USER && \
+RUN groupadd --system $USER && \
+useradd --system -g $USER $USER && \
 apt update && \
 apt install zip -y && \
 touch ebms-admin.embedded.properties && \
