@@ -9,12 +9,13 @@ ENV JAVA_ARGS="-Dlog4j.configurationFile=$LOG4J2"
 LABEL maintainer="eluinstra@luin.dev"
 LABEL version=nl.clockwork.ebms.admin.version=$EBMS_VERSION
 WORKDIR $WORKDIR
+COPY ${EBMS_ADMIN}.jar .
 RUN groupadd --system $USER && \
 useradd --system -g $USER $USER && \
 apt update && \
 apt install zip -y && \
 touch ebms-admin.embedded.properties && \
-curl -OL https://github.com/eluinstra/ebms-admin/releases/download/${EBMS_ADMIN}/${EBMS_ADMIN}.jar && \
+# curl -OL https://github.com/eluinstra/ebms-admin/releases/download/${EBMS_ADMIN}/${EBMS_ADMIN}.jar && \
 unzip -p ${EBMS_ADMIN}.jar $LOG4J2 > $LOG4J2 && \
 sed -i 's/ref="File"/ref="Console"/g' $LOG4J2 && \
 printf "#!/bin/sh\n" > $START && \
