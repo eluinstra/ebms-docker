@@ -16,7 +16,7 @@ services:
     environment:
       ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
-      cache_type: "DEFAULT"
+      cache_type: "EHCACHE"
       jms_broker_start: "true"
       eventListener_type: "JMS"
       ebms_jdbc_update: "true"
