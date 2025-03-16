@@ -14,7 +14,7 @@ docker build \
 cd $BASE_DIR/ebms-adapter-pg/
 docker build \
   --build-arg EBMS_VERSION=${EBMS_VERSION} \
-  --build-arg POSTGRES_DRIVER=postgresql-42.7.4.jar \
+  --build-arg POSTGRES_DRIVER=postgresql-42.7.5.jar \
   -t ${REPO}ebms-adapter-pg:$EBMS_VERSION \
   -t ${REPO}ebms-adapter-pg:$EBMS_MAJOR_VERSION \
   -t ${REPO}ebms-adapter-pg:latest \
