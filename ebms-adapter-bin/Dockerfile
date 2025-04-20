@@ -1,11 +1,11 @@
 FROM openjdk:8-jre-alpine
-ARG EBMS_VERSION=2.17.5
+ARG EBMS_VERSION=
 ARG EBMS_ADMIN=ebms-admin-${EBMS_VERSION}
 ARG LOG4J2=log4j2.xml
 ARG START=start.sh
 ARG USER=user
-ENV WORKDIR /home/$USER
-ENV JAVA_ARGS "-Dlog4j.configurationFile=$LOG4J2"
+ENV WORKDIR=/home/$USER
+ENV JAVA_ARGS="-Dlog4j.configurationFile=$LOG4J2"
 LABEL maintainer="eluinstra@luin.dev"
 LABEL version=nl.clockwork.ebms.admin.version=$EBMS_VERSION
 WORKDIR $WORKDIR

@@ -1,4 +1,7 @@
 #!/bin/sh
 
-export EBMS_VERSION=2.17.5
-export REPO=eluinstra/
+export ARCH=`dpkg --print-architecture`
+export EBMS_VERSION=2.17.6
+export ACTIVEMQ_VERSION=5.15.13
+export POSTGRES_VERSION=42.2.14
+export REPO=eluinstra
