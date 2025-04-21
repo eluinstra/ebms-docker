@@ -1,5 +1,5 @@
 FROM ibm-semeru-runtimes:open-17-jre
-ARG ACTIVEMQ_VERSION=6.1.3
+ARG ACTIVEMQ_VERSION=
 ARG ACTIVEMQ=apache-activemq-${ACTIVEMQ_VERSION}
 ARG USER=user
 ARG WORKDIR=/home/$USER
