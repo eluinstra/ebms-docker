@@ -1,4 +1,4 @@
-FROM eluinstra/ebms-adapter-bin:2.20.0
+FROM eluinstra/ebms-adapter-bin:2.20.1
 ARG EBMS_VERSION=
 ARG EBMS_CACHE_TYPE="EHCACHE"
 ARG EBMS_CACHE_LIB=ebms-ehcache-${EBMS_VERSION}.jar
