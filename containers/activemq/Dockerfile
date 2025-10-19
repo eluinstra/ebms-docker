@@ -1,13 +1,13 @@
 FROM openjdk:8-jre-alpine
-ARG ACTIVEMQ_VERSION=5.15.13
+ARG ACTIVEMQ_VERSION=5.18.7
 ARG ACTIVEMQ=apache-activemq-${ACTIVEMQ_VERSION}
 ARG USER=user
 ARG WORKDIR=/home/$USER
 LABEL maintainer="eluinstra@luin.dev"
 LABEL version=$ACTIVEMQ_VERSION
 WORKDIR $WORKDIR
-RUN addgroup -S $USER && \
-adduser -S $USER -G $USER && \
+RUN addgroup --system $USER && \
+adduser --system --ingroup $USER $USER && \
 touch ebms-admin.embedded.properties && \
 wget https://archive.apache.org/dist/activemq/${ACTIVEMQ_VERSION}/${ACTIVEMQ}-bin.tar.gz -O $ACTIVEMQ-bin.tar.gz && \
 tar xzf ${ACTIVEMQ}-bin.tar.gz && \

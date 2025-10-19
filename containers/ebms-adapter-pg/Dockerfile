@@ -1,4 +1,4 @@
-FROM eluinstra/ebms-adapter-bin:2.19.4
+FROM eluinstra/ebms-adapter-bin:2.19.5
 ARG POSTGRES_DRIVER=
 ENV CLASSPATH="${POSTGRES_DRIVER}:"
 ENV ebms_jdbc_driverClassName=org.postgresql.Driver

@@ -80,8 +80,8 @@ services:
       - activemq
       - postgres
   activemq:
-    # image: apache/activemq-classic:5.18.4
-    image: eluinstra/activemq:5.15.13
+    # image: apache/activemq-classic:5.18.7
+    image: eluinstra/activemq:5.18.7
     volumes:
       - ./activemq.xml:/home/user/activemq/conf/activemq.xml:ro
     ports:
@@ -91,7 +91,7 @@ services:
     #   - ./data:/home/user/activemq/data
     #   - ./data:/opt/apache-activemq/data
   postgres:
-    image: postgres:16
+    image: postgres:18
     environment:
       POSTGRES_USER: ebms
       POSTGRES_PASSWORD: ebms
