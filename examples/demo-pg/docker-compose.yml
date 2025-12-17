@@ -16,7 +16,7 @@ services:
     environment:
       ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
-      cache_type: "EHCACHE"
+      cache_type: "PLUGIN"
       jms_broker_start: "true"
       eventListener_type: "JMS"
       ebms_jdbc_update: "true"
@@ -28,7 +28,7 @@ services:
       - 8443
       - 8888
     ports:
-      - "8000:8443"
+      - "8443:8443"
     depends_on:
       - postgres
   postgres:

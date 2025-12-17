@@ -36,14 +36,3 @@ docker manifest create $REPO/ebms-adapter-pg:latest \
   $REPO/ebms-adapter-pg:$EBMS_VERSION-amd64 \
   $REPO/ebms-adapter-pg:$EBMS_VERSION-arm64
 docker manifest push $REPO/ebms-adapter-pg:latest
-
-docker manifest create $REPO/activemq:$ACTIVEMQ_VERSION \
-  --amend $REPO/activemq:$ACTIVEMQ_VERSION-amd64 \
-  --amend $REPO/activemq:$ACTIVEMQ_VERSION-arm64
-docker manifest push $REPO/activemq:$ACTIVEMQ_VERSION
-
-docker manifest rm $REPO/activemq:latest
-docker manifest create $REPO/activemq:latest \
-  $REPO/activemq:$ACTIVEMQ_VERSION-amd64 \
-  $REPO/activemq:$ACTIVEMQ_VERSION-arm64
-docker manifest push $REPO/activemq:latest
