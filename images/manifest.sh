@@ -1,38 +1,47 @@
 #!/bin/sh
 
+set -eu
+
 export BASE_DIR=`dirname $(realpath $0)`
 . $BASE_DIR/env.sh
 
-docker manifest create $REPO/ebms-adapter-bin:$EBMS_VERSION \
-  --amend $REPO/ebms-adapter-bin:$EBMS_VERSION-amd64 \
-  --amend $REPO/ebms-adapter-bin:$EBMS_VERSION-arm64
-docker manifest push $REPO/ebms-adapter-bin:$EBMS_VERSION
+create_manifest() {
+  target="$1"
+  amd64="$2"
+  arm64="$3"
 
-docker manifest rm $REPO/ebms-adapter-bin:$EBMS_MAJOR_VERSION
-docker manifest create $REPO/ebms-adapter-bin:$EBMS_MAJOR_VERSION \
-  $REPO/ebms-adapter-bin:$EBMS_VERSION-amd64 \
-  $REPO/ebms-adapter-bin:$EBMS_VERSION-arm64
-docker manifest push $REPO/ebms-adapter-bin:$EBMS_MAJOR_VERSION
+  docker buildx imagetools create \
+    --tag "$target" \
+    "$amd64" \
+    "$arm64"
+}
 
-docker manifest rm $REPO/ebms-adapter-bin:latest
-docker manifest create $REPO/ebms-adapter-bin:latest \
-  $REPO/ebms-adapter-bin:$EBMS_VERSION-amd64 \
-  $REPO/ebms-adapter-bin:$EBMS_VERSION-arm64
-docker manifest push $REPO/ebms-adapter-bin:latest
+create_manifest \
+  "$REPO/ebms-adapter-bin:$EBMS_VERSION" \
+  "$REPO/ebms-adapter-bin:$EBMS_VERSION-amd64" \
+  "$REPO/ebms-adapter-bin:$EBMS_VERSION-arm64"
 
-docker manifest create $REPO/ebms-adapter-pg:$EBMS_VERSION \
-  --amend $REPO/ebms-adapter-pg:$EBMS_VERSION-amd64 \
-  --amend $REPO/ebms-adapter-pg:$EBMS_VERSION-arm64
-docker manifest push $REPO/ebms-adapter-pg:$EBMS_VERSION
+create_manifest \
+  "$REPO/ebms-adapter-bin:$EBMS_MAJOR_VERSION" \
+  "$REPO/ebms-adapter-bin:$EBMS_VERSION-amd64" \
+  "$REPO/ebms-adapter-bin:$EBMS_VERSION-arm64"
 
-docker manifest rm $REPO/ebms-adapter-pg:$EBMS_MAJOR_VERSION
-docker manifest create $REPO/ebms-adapter-pg:$EBMS_MAJOR_VERSION \
-  $REPO/ebms-adapter-pg:$EBMS_VERSION-amd64 \
-  $REPO/ebms-adapter-pg:$EBMS_VERSION-arm64
-docker manifest push $REPO/ebms-adapter-pg:$EBMS_MAJOR_VERSION
+create_manifest \
+  "$REPO/ebms-adapter-bin:latest" \
+  "$REPO/ebms-adapter-bin:$EBMS_VERSION-amd64" \
+  "$REPO/ebms-adapter-bin:$EBMS_VERSION-arm64"
 
-docker manifest rm $REPO/ebms-adapter-pg:latest
-docker manifest create $REPO/ebms-adapter-pg:latest \
-  $REPO/ebms-adapter-pg:$EBMS_VERSION-amd64 \
-  $REPO/ebms-adapter-pg:$EBMS_VERSION-arm64
-docker manifest push $REPO/ebms-adapter-pg:latest
+create_manifest \
+  "$REPO/ebms-adapter-pg:$EBMS_VERSION" \
+  "$REPO/ebms-adapter-pg:$EBMS_VERSION-amd64" \
+  "$REPO/ebms-adapter-pg:$EBMS_VERSION-arm64"
+
+create_manifest \
+  "$REPO/ebms-adapter-pg:$EBMS_MAJOR_VERSION" \
+  "$REPO/ebms-adapter-pg:$EBMS_VERSION-amd64" \
+  "$REPO/ebms-adapter-pg:$EBMS_VERSION-arm64"
+
+create_manifest \
+  "$REPO/ebms-adapter-pg:latest" \
+  "$REPO/ebms-adapter-pg:$EBMS_VERSION-amd64" \
+  "$REPO/ebms-adapter-pg:$EBMS_VERSION-arm64"
