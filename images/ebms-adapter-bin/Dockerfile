@@ -18,7 +18,7 @@ curl -OL https://github.com/eluinstra/ebms-admin/releases/download/${EBMS_ADMIN}
 unzip -p ${EBMS_ADMIN}.jar $LOG4J2 > $LOG4J2 && \
 sed -i 's/ref="File"/ref="Console"/g' $LOG4J2 && \
 printf "#!/bin/sh\n" > $START && \
-printf "java \$JAVA_ARGS -cp \${CLASSPATH}${EBMS_ADMIN}.jar nl.clockwork.ebms.admin.StartEmbedded \$@" >> $START && \
+printf "java \$JAVA_ARGS -cp \${CLASSPATH:+\$CLASSPATH:}${EBMS_ADMIN}.jar nl.clockwork.ebms.admin.StartEmbedded \$@" >> $START && \
 chmod u+x $START && \
 chown -R $USER:$USER $WORKDIR
 USER $USER:$USER
