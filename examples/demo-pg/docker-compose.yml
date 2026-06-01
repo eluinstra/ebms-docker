@@ -5,9 +5,9 @@ services:
       ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
       ebms_jdbc_update: "true"
-      ebms_jdbc_url: "jdbc:postgresql://postgres-digipoort:5432/ebms"
-      ebms_jdbc_username: "ebms"
-      ebms_jdbc_password: "ebms"
+      ebms_jdbc_url: "jdbc:postgresql://postgres-digipoort:5432/${DIGIPOORT_DB_NAME}"
+      ebms_jdbc_username: "${DIGIPOORT_DB_USER}"
+      ebms_jdbc_password: "${DIGIPOORT_DB_PASSWORD}"
     command: "./start.sh -soap -health"
     expose:
       - 8080
@@ -34,9 +34,9 @@ services:
   postgres-digipoort:
     image: postgres:18
     environment:
-      POSTGRES_USER: ebms
-      POSTGRES_PASSWORD: ebms
-      POSTGRES_DB: ebms
+      POSTGRES_USER: ${DIGIPOORT_DB_USER}
+      POSTGRES_PASSWORD: ${DIGIPOORT_DB_PASSWORD}
+      POSTGRES_DB: ${DIGIPOORT_DB_NAME}
     # ports:
     #   - "5432:5432"
     # volumes:
@@ -50,9 +50,9 @@ services:
       jms_broker_start: "true"
       eventListener_type: "JMS"
       ebms_jdbc_update: "true"
-      ebms_jdbc_url: "jdbc:postgresql://postgres-overheid:5432/ebms"
-      ebms_jdbc_username: "ebms"
-      ebms_jdbc_password: "ebms"
+      ebms_jdbc_url: "jdbc:postgresql://postgres-overheid:5432/${OVERHEID_DB_NAME}"
+      ebms_jdbc_username: "${OVERHEID_DB_USER}"
+      ebms_jdbc_password: "${OVERHEID_DB_PASSWORD}"
     command: "./start.sh -ssl -soap -health"
     expose:
       - 8443
@@ -81,9 +81,9 @@ services:
   postgres-overheid:
     image: postgres:18
     environment:
-      POSTGRES_USER: ebms
-      POSTGRES_PASSWORD: ebms
-      POSTGRES_DB: ebms
+      POSTGRES_USER: ${OVERHEID_DB_USER}
+      POSTGRES_PASSWORD: ${OVERHEID_DB_PASSWORD}
+      POSTGRES_DB: ${OVERHEID_DB_NAME}
     # ports:
     #   - "5432:5432"
     # volumes:

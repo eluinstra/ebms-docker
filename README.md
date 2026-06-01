@@ -8,6 +8,44 @@ This project container Docker examples for different EbMS adapter configurations
 - demo-pg - demo with https interface, jms events and postgres db
 - demo-hs - postgres demo with horizontal scaled ebms-adapter
 
+## Build Docker images cross platform on WSL2
+
+### Register QEMU binfmt handlers
+
+	docker run --privileged --rm tonistiigi/binfmt --install all
+
+	# Check if handlers are registered
+	docker buildx ls
+	ls /proc/sys/fs/binfmt_misc/qemu-*
+
+### Build, push and publish manifests
+
+Run from the images folder:
+
+	cd images
+
+Build images:
+
+	./build.sh amd64
+	./build.sh arm64
+	./build.sh all
+
+Push images:
+
+	./push.sh amd64
+	./push.sh arm64
+	./push.sh all
+
+Create and push multi-arch manifests:
+
+	./manifest.sh
+
+Clean local images for one or both architectures:
+
+	./cleanall.sh amd64
+	./cleanall.sh arm64
+	./cleanall.sh all
+
 ### Build and run demo:
 
 ```

@@ -5,43 +5,19 @@ set -eu
 export BASE_DIR=`dirname $(realpath $0)`
 . $BASE_DIR/env.sh
 
-create_manifest() {
-  target="$1"
-  amd64="$2"
-  arm64="$3"
+for IMAGE in $IMAGE_NAMES; do
+  for TAG in "$EBMS_MAJOR_VERSION" "$EBMS_VERSION" "latest"; do
+    TARGET="${REPO}${IMAGE}:${TAG}"
 
-  docker buildx imagetools create \
-    --tag "$target" \
-    "$amd64" \
-    "$arm64"
-}
+    docker manifest rm "$TARGET" >/dev/null 2>&1 || true
 
-create_manifest \
-  "$REPO/ebms-adapter-bin:$EBMS_VERSION" \
-  "$REPO/ebms-adapter-bin:$EBMS_VERSION-amd64" \
-  "$REPO/ebms-adapter-bin:$EBMS_VERSION-arm64"
+    docker manifest create "$TARGET" \
+      --amend "${REPO}${IMAGE}:${TAG}-amd64" \
+      --amend "${REPO}${IMAGE}:${TAG}-arm64"
 
-create_manifest \
-  "$REPO/ebms-adapter-bin:$EBMS_MAJOR_VERSION" \
-  "$REPO/ebms-adapter-bin:$EBMS_VERSION-amd64" \
-  "$REPO/ebms-adapter-bin:$EBMS_VERSION-arm64"
+    docker manifest annotate "$TARGET" "${REPO}${IMAGE}:${TAG}-amd64" --arch amd64
+    docker manifest annotate "$TARGET" "${REPO}${IMAGE}:${TAG}-arm64" --arch arm64
 
-create_manifest \
-  "$REPO/ebms-adapter-bin:latest" \
-  "$REPO/ebms-adapter-bin:$EBMS_VERSION-amd64" \
-  "$REPO/ebms-adapter-bin:$EBMS_VERSION-arm64"
-
-create_manifest \
-  "$REPO/ebms-adapter-pg:$EBMS_VERSION" \
-  "$REPO/ebms-adapter-pg:$EBMS_VERSION-amd64" \
-  "$REPO/ebms-adapter-pg:$EBMS_VERSION-arm64"
-
-create_manifest \
-  "$REPO/ebms-adapter-pg:$EBMS_MAJOR_VERSION" \
-  "$REPO/ebms-adapter-pg:$EBMS_VERSION-amd64" \
-  "$REPO/ebms-adapter-pg:$EBMS_VERSION-arm64"
-
-create_manifest \
-  "$REPO/ebms-adapter-pg:latest" \
-  "$REPO/ebms-adapter-pg:$EBMS_VERSION-amd64" \
-  "$REPO/ebms-adapter-pg:$EBMS_VERSION-arm64"
+    docker manifest push --purge "$TARGET"
+  done
+done
