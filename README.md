@@ -7,6 +7,7 @@ This project container Docker examples for different EbMS adapter configurations
 - demo - simple demo
 - demo-pg - demo with https interface, jms events and postgres db
 - demo-hs - postgres demo with horizontal scaled ebms-adapter
+- sonarqube - local SonarQube server for IDE connected analysis
 
 ## Build Docker images cross platform on WSL2
 
