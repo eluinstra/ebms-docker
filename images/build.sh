@@ -56,7 +56,8 @@ for TARGET_ARCH in $ARCH_LIST; do
   cd "$BASE_DIR/ebms-adapter-pg/"
   docker buildx build \
     --platform "$PLATFORM" \
-    --build-arg EBMS_VERSION="${EBMS_VERSION}-${TARGET_ARCH}" \
+    --build-arg EBMS_VERSION="${EBMS_VERSION}" \
+    --build-context "eluinstra/ebms-adapter-bin:${EBMS_VERSION}=docker-image://${REPO}ebms-adapter-bin:${EBMS_VERSION}-${TARGET_ARCH}" \
     -t "${REPO}ebms-adapter-pg:${EBMS_MAJOR_VERSION}-${TARGET_ARCH}" \
     -t "${REPO}ebms-adapter-pg:${EBMS_VERSION}-${TARGET_ARCH}" \
     -t "${REPO}ebms-adapter-pg:latest-${TARGET_ARCH}" \

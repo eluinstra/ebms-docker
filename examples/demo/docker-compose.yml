@@ -4,8 +4,9 @@ services:
     environment:
       ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
+      database_start: "true"
       ebms_jdbc_update: "true"
-    command: "./start.sh -h2 -soap -health"
+    command: "./start.sh -soap -health"
     expose:
       - 8080
       - 8888
@@ -33,8 +34,9 @@ services:
     environment:
       ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
+      database_start: "true"
       ebms_jdbc_update: "true"
-    command: "./start.sh -h2 -soap -health"
+    command: "./start.sh -soap -health"
     expose:
       - 8080
       - 8888

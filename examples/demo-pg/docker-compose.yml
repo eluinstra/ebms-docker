@@ -1,13 +1,11 @@
 services:
   digipoort:
-    image: eluinstra/ebms-adapter-pg:${EBMS_VERSION}
+    image: eluinstra/ebms-adapter-bin:${EBMS_VERSION}
     environment:
       ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
+      database_start: "true"
       ebms_jdbc_update: "true"
-      ebms_jdbc_url: "jdbc:postgresql://postgres-digipoort:5432/${DIGIPOORT_DB_NAME}"
-      ebms_jdbc_username: "${DIGIPOORT_DB_USER}"
-      ebms_jdbc_password: "${DIGIPOORT_DB_PASSWORD}"
     command: "./start.sh -soap -health"
     expose:
       - 8080
@@ -31,16 +29,6 @@ services:
         curl -L https://raw.githubusercontent.com/eluinstra/ebms-docker/refs/heads/2.20.x/examples/cpa.xml -o cpa.xml && \
         curl -X POST -H \"Content-Type: text/plain\" --data @cpa.xml http://digipoort:8080/service/rest/v19/cpas?overwrite=true
       "
-  postgres-digipoort:
-    image: postgres:18
-    environment:
-      POSTGRES_USER: ${DIGIPOORT_DB_USER}
-      POSTGRES_PASSWORD: ${DIGIPOORT_DB_PASSWORD}
-      POSTGRES_DB: ${DIGIPOORT_DB_NAME}
-    # ports:
-    #   - "5432:5432"
-    # volumes:
-    #   - ./data:/var/lib/postgresql/data
   overheid:
     image: eluinstra/ebms-adapter-pg:${EBMS_VERSION}
     environment:

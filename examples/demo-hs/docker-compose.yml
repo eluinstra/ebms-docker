@@ -4,8 +4,9 @@ services:
     environment:
       ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
+      database_start: "true"
       ebms_jdbc_update: "true"
-    command: "./start.sh -h2 -soap -health"
+    command: "./start.sh -soap -health"
     expose:
       - 8080
       - 8888
@@ -41,9 +42,9 @@ services:
       jms_brokerURL: "tcp://activemq:61616"
       ebms_jdbc_update: "true"
       ebms_jdbc_driverClassName: org.postgresql.xa.PGXADataSource
-      ebms_jdbc_url: "jdbc:postgresql://postgres:5432/ebms"
-      ebms_jdbc_username: "ebms"
-      ebms_jdbc_password: "ebms"
+      ebms_jdbc_url: "jdbc:postgresql://postgres:5432/${OVERHEID_DB_NAME}"
+      ebms_jdbc_username: "${OVERHEID_DB_USER}"
+      ebms_jdbc_password: "${OVERHEID_DB_PASSWORD}"
       ebms_pool_minPoolSize: "4"
       ebms_pool_maxPoolSize: "4"
     command: "./start.sh -headless -disableEbMSClient"
@@ -65,9 +66,9 @@ services:
       jms_brokerURL: "tcp://activemq:61616"
       ebms_jdbc_update: "true"
       ebms_jdbc_driverClassName: org.postgresql.xa.PGXADataSource
-      ebms_jdbc_url: "jdbc:postgresql://postgres:5432/ebms"
-      ebms_jdbc_username: "ebms"
-      ebms_jdbc_password: "ebms"
+      ebms_jdbc_url: "jdbc:postgresql://postgres:5432/${OVERHEID_DB_NAME}"
+      ebms_jdbc_username: "${OVERHEID_DB_USER}"
+      ebms_jdbc_password: "${OVERHEID_DB_PASSWORD}"
       ebms_pool_minPoolSize: "4"
       ebms_pool_maxPoolSize: "4"
     command: "./start.sh -headless -disableEbMSServer"
@@ -87,9 +88,9 @@ services:
       jms_brokerURL: "tcp://activemq:61616"
       ebms_jdbc_update: "true"
       ebms_jdbc_driverClassName: org.postgresql.xa.PGXADataSource
-      ebms_jdbc_url: "jdbc:postgresql://postgres:5432/ebms"
-      ebms_jdbc_username: "ebms"
-      ebms_jdbc_password: "ebms"
+      ebms_jdbc_url: "jdbc:postgresql://postgres:5432/${OVERHEID_DB_NAME}"
+      ebms_jdbc_username: "${OVERHEID_DB_USER}"
+      ebms_jdbc_password: "${OVERHEID_DB_PASSWORD}"
       ebms_pool_minPoolSize: "4"
       ebms_pool_maxPoolSize: "4"
     command: "./start.sh -ssl -soap -disableEbMSServer -disableEbMSClient -health"
