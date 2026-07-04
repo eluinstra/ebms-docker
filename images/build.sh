@@ -65,4 +65,18 @@ for TARGET_ARCH in $ARCH_LIST; do
   if [ "$TARGET_ARCH" = "$ARCH" ]; then
     docker tag "${REPO}ebms-adapter-pg:${EBMS_VERSION}-${TARGET_ARCH}" "ebms-adapter-pg:${EBMS_VERSION}"
   fi
+
+  echo "Building ebms-adapter-test for ${TARGET_ARCH}"
+  cd "$BASE_DIR/ebms-adapter-test/"
+  docker buildx build \
+    --platform "$PLATFORM" \
+    --build-arg EBMS_VERSION="${EBMS_VERSION}" \
+    --build-context "eluinstra/ebms-adapter-bin:${EBMS_VERSION}=docker-image://${REPO}ebms-adapter-bin:${EBMS_VERSION}-${TARGET_ARCH}" \
+    -t "${REPO}ebms-adapter-test:${EBMS_MAJOR_VERSION}-${TARGET_ARCH}" \
+    -t "${REPO}ebms-adapter-test:${EBMS_VERSION}-${TARGET_ARCH}" \
+    -t "${REPO}ebms-adapter-test:latest-${TARGET_ARCH}" \
+    --load .
+  if [ "$TARGET_ARCH" = "$ARCH" ]; then
+    docker tag "${REPO}ebms-adapter-test:${EBMS_VERSION}-${TARGET_ARCH}" "ebms-adapter-test:${EBMS_VERSION}"
+  fi
 done

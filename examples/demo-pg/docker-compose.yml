@@ -1,6 +1,6 @@
 services:
   digipoort:
-    image: eluinstra/ebms-adapter-bin:${EBMS_VERSION}
+    image: eluinstra/ebms-adapter-test:${EBMS_VERSION}
     environment:
       ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
@@ -41,7 +41,7 @@ services:
       ebms_jdbc_url: "jdbc:postgresql://postgres-overheid:5432/${OVERHEID_DB_NAME}"
       ebms_jdbc_username: "${OVERHEID_DB_USER}"
       ebms_jdbc_password: "${OVERHEID_DB_PASSWORD}"
-    command: "./start.sh -ssl -soap -health"
+    command: ./start.sh -ssl -soap -health
     expose:
       - 8443
       - 8888
@@ -49,6 +49,11 @@ services:
       - "8443:8443"
     depends_on:
       - postgres-overheid
+    volumes:
+      - type: bind
+        source: ./start1.sh
+        target: /home/user/start1.sh
+        read_only: true
   #   healthcheck:
   #     test: "curl -f http://localhost:8008/health"
   #     start_period: 3s

@@ -1,6 +1,6 @@
 services:
   digipoort:
-    image: eluinstra/ebms-adapter-bin:${EBMS_VERSION}
+    image: eluinstra/ebms-adapter-test:${EBMS_VERSION}
     environment:
       ebms_verifyHostnames: "false"
       https_verifyHostnames: "false"
