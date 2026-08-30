@@ -1,5 +1,15 @@
 # Docker Images
 
+## Version
+
+`env.sh` pins the version that `build.sh`, `push.sh` and `manifest.sh`
+build and push. After a new release, bump it (and the `examples/*/.env`
+files) from the repo root:
+
+```sh
+./bump.sh 2.20.9        # or: ./bump.sh (latest eluinstra/ebms-admin release)
+```
+
 ## Prerequisites to build cross platform on WSL2
 
 Register QEMU binfmt handlers

@@ -8,6 +8,14 @@ This project container Docker examples for different EbMS adapter configurations
 - demo-pg - demo with https interface, jms events and postgres db
 - demo-hs - postgres demo with horizontal scaled ebms-adapter
 
+## Bump the version
+
+The version used by the image build scripts and the example compose files
+is pinned in `images/env.sh` and the `examples/*/.env` files. After a new
+release, bump it from this folder:
+
+	./bump.sh 2.20.9        # or: ./bump.sh (latest eluinstra/ebms-admin release)
+
 ## Build Docker images cross platform on WSL2
 
 ### Register QEMU binfmt handlers
