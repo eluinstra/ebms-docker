@@ -16,6 +16,15 @@ release, bump it from this folder:
 
 	./bump.sh 2.20.9        # or: ./bump.sh (latest eluinstra/ebms-admin release)
 
+## Smoke test
+
+Builds the docker images for the host architecture and verifies them with
+the two-adapter demo stack (ping + message exchange, both directions):
+
+	./smoke-test.sh                 # build images + run the test
+	./smoke-test.sh --skip-build    # reuse the locally built images
+	./smoke-test.sh --keep          # leave the demo stack running
+
 ## Build Docker images cross platform on WSL2
 
 ### Register QEMU binfmt handlers
