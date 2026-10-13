@@ -6,8 +6,12 @@ services:
       https_verifyHostnames: "false"
       database_start: "true"
       ebms_jdbc_update: "true"
-      # command: sh -c "curl -OL https://github.com/eluinstra/ebms-admin/releases/download/ebms-admin-2.20.8/ebms-h2-db-plugin-2.20.8.jar && export CLASSPATH=ebms-h2-db-plugin-2.20.8.jar && ./start.sh -soap -health"
-    command: "./start.sh -soap -health"
+      # add plugin jars with: JAVA_ARGS="$JAVA_ARGS -cp <plugin>.jar" or CLASSPATH=..., then ./start.sh
+    # -soap/-health CLI args are no-ops on the ebms-server main class; connectors
+    # are enabled with -D flags via JAVA_ARGS (api.soap.enabled defaults true).
+    environment:
+      JAVA_ARGS: "-Dlog4j.configurationFile=log4j2.xml -Dapi.health.enabled=true"
+    command: "./start.sh"
     expose:
       - 8080
       - 8888
@@ -37,7 +41,11 @@ services:
       https_verifyHostnames: "false"
       database_start: "true"
       ebms_jdbc_update: "true"
-    command: "./start.sh -soap -health"
+    # -soap/-health CLI args are no-ops on the ebms-server main class; connectors
+    # are enabled with -D flags via JAVA_ARGS (api.soap.enabled defaults true).
+    environment:
+      JAVA_ARGS: "-Dlog4j.configurationFile=log4j2.xml -Dapi.health.enabled=true"
+    command: "./start.sh"
     expose:
       - 8080
       - 8888
