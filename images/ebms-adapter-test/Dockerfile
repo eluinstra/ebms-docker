@@ -8,6 +8,6 @@ ENV cache_type=${EBMS_CACHE_TYPE}
 ENV ebms_jdbc_driverClassName=org.h2.Driver
 ENV ebms_jdbc_url=jdbc:h2:file:/home/user/ebms
 ENV ebms_jdbc_username=sa
-RUN curl -OL https://github.com/eluinstra/ebms-admin/releases/download/ebms-admin-${EBMS_VERSION}/${EBMS_H2_PLUGIN}
+RUN curl -OL https://github.com/eluinstra/ebms-core/releases/download/ebms-core-${EBMS_VERSION}/${EBMS_H2_PLUGIN}
 #ENTRYPOINT ["./start.sh"]
 #EXPOSE 8080 8888

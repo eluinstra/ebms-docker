@@ -14,7 +14,7 @@ The version used by the image build scripts and the example compose files
 is pinned in `images/env.sh` and the `examples/*/.env` files. After a new
 release, bump it from this folder:
 
-	./bump.sh 2.20.9        # or: ./bump.sh (latest eluinstra/ebms-admin release)
+	./bump.sh 2.20.9        # or: ./bump.sh (latest eluinstra/ebms-core release)
 
 ## Smoke test
 

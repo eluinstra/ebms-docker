@@ -8,12 +8,12 @@
 #   examples/demo-pg/.env       EBMS_VERSION
 #   examples/demo-hs/.env       EBMS_VERSION
 #
-# The Dockerfiles download the release JARs from the eluinstra/ebms-admin
+# The Dockerfiles download the release JARs from the eluinstra/ebms-core
 # GitHub release at build time, so by default the script checks that the
 # release exists before writing anything.
 #
 # Usage
-#   ./bump.sh               bump to the latest eluinstra/ebms-admin release
+#   ./bump.sh               bump to the latest eluinstra/ebms-core release
 #   ./bump.sh 2.20.9        bump to an explicit version
 #   ./bump.sh 2.20.9 --check
 #                           report drift only, write nothing
@@ -91,10 +91,10 @@ effective() {
 
 #--- resolve the target version --------------------------------------------------
 if [ -z "$VERSION" ]; then
-  tag=$(curl -sf "https://api.github.com/repos/eluinstra/ebms-admin/releases/latest" \
-    | jq -r .tag_name) || die "could not fetch the latest eluinstra/ebms-admin release"
-  VERSION="${tag#ebms-admin-}"
-  echo "latest eluinstra/ebms-admin release: ${VERSION}"
+  tag=$(curl -sf "https://api.github.com/repos/eluinstra/ebms-core/releases/latest" \
+    | jq -r .tag_name) || die "could not fetch the latest eluinstra/ebms-core release"
+  VERSION="${tag#ebms-core-}"
+  echo "latest eluinstra/ebms-core release: ${VERSION}"
 fi
 
 printf '%s' "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$' \
@@ -108,10 +108,10 @@ fi
 
 #--- preflight: the release must exist (the Dockerfiles pull the JARs from it) ---
 if [ "$FORCE" -eq 0 ]; then
-  url="https://github.com/eluinstra/ebms-admin/releases/download/ebms-admin-${VERSION}/ebms-admin-${VERSION}.jar"
+  url="https://github.com/eluinstra/ebms-core/releases/download/ebms-core-${VERSION}/ebms-server-${VERSION}.jar"
   code=$(curl -sL -r 0-0 -o /dev/null -w '%{http_code}' "$url" 2>/dev/null) || code=000
   if [ "$code" != "200" ] && [ "$code" != "206" ]; then
-    die "GitHub release ebms-admin-${VERSION} not found (HTTP ${code}). Run the Release workflow first, or use --force to skip this check"
+    die "GitHub release ebms-core-${VERSION} not found (HTTP ${code}). Run the Release workflow first, or use --force to skip this check"
   fi
 fi
 

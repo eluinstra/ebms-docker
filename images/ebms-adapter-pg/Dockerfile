@@ -9,7 +9,7 @@ ENV cache_type=${EBMS_CACHE_TYPE}
 ENV ebms_jdbc_driverClassName=org.postgresql.Driver
 ENV ebms_jdbc_url=jdbc:postgresql://postgres:5432/ebms
 ENV ebms_jdbc_username=ebms
-RUN curl -OL https://github.com/eluinstra/ebms-admin/releases/download/ebms-admin-${EBMS_VERSION}/${EBMS_CACHE_PLUGIN} && \
-curl -OL https://github.com/eluinstra/ebms-admin/releases/download/ebms-admin-${EBMS_VERSION}/${EBMS_POSTGRES_PLUGIN}
+RUN curl -OL https://github.com/eluinstra/ebms-core/releases/download/ebms-core-${EBMS_VERSION}/${EBMS_CACHE_PLUGIN} && \
+curl -OL https://github.com/eluinstra/ebms-core/releases/download/ebms-core-${EBMS_VERSION}/${EBMS_POSTGRES_PLUGIN}
 #ENTRYPOINT ["./start.sh"]
 #EXPOSE 8080 8888 5432
