@@ -15,6 +15,9 @@ is pinned in `images/env.sh` and the `examples/*/.env` files. After a new
 release, bump it from this folder:
 
 	./bump.sh 2.20.9        # or: ./bump.sh (latest eluinstra/ebms-core release)
+	./bump.sh 2.21.0-M1     # pre-releases (milestone/RC/beta) are accepted too: only
+	                        # the exact version tag moves, latest and the <major>.<minor>
+	                        # tag stay on the last stable release
 
 ## Smoke test
 

@@ -15,6 +15,10 @@
 # Usage
 #   ./bump.sh               bump to the latest eluinstra/ebms-core release
 #   ./bump.sh 2.20.9        bump to an explicit version
+#   ./bump.sh 2.21.0-M1     bump to a pre-release (milestone/RC/beta); the
+#                           version-prefixed tags are published but the
+#                           floating tags (latest, <major>.<minor>) keep
+#                           pointing at the last stable release (see env.sh)
 #   ./bump.sh 2.20.9 --check
 #                           report drift only, write nothing
 #                           (exit 1 when drift is found, 0 when in sync)
@@ -97,9 +101,19 @@ if [ -z "$VERSION" ]; then
   echo "latest eluinstra/ebms-core release: ${VERSION}"
 fi
 
-printf '%s' "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$' \
-  || die "version must be MAJOR.MINOR.PATCH, got: '$VERSION'"
-MAJOR="${VERSION%.*}"
+case "$VERSION" in
+  *-SNAPSHOT) die "version $VERSION is a SNAPSHOT; pre-releases are plain versions with a qualifier, e.g. 2.21.0-M1" ;;
+esac
+printf '%s' "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z]+([._-][0-9A-Za-z]+)*)?$' \
+  || die "version must be MAJOR.MINOR.PATCH or MAJOR.MINOR.PATCH-QUALIFIER (e.g. 2.21.0-M1), got: '$VERSION'"
+# a pre-release bumps to its own version but the major (and the floating tags)
+# follow the base version: 2.22.0-M1 is part of the 2.22 line, and must not
+# produce a "2.22.0-M" major tag
+case "$VERSION" in
+  *-*) BASE="${VERSION%%-*}" ; PRE=" (pre-release)" ;;
+  *)   BASE="$VERSION" ; PRE="" ;;
+esac
+MAJOR="${BASE%.*}"
 
 current_major=$(effective images/env.sh EBMS_MAJOR_VERSION || true)
 if [ -n "$current_major" ] && [ "$current_major" != "$MAJOR" ]; then
@@ -161,8 +175,11 @@ for line in $VERSION_FILES; do
       sed -i "s|^${key}=.*|${key}=${target}|" "$BASE_DIR/$file" ;;
   esac
 done
-echo "bumped to ${VERSION}:"
+echo "bumped to ${VERSION}${PRE}:"
 printf '  %s\n' images/env.sh examples/demo/.env examples/demo-pg/.env examples/demo-hs/.env
+case "$VERSION" in
+  *-*) echo "pre-release: build/push/manifest keep latest and ${MAJOR} on the last stable release (see images/env.sh)" ;;
+esac
 
 #--- optional commit ---------------------------------------------------------------------
 if [ "$COMMIT" -eq 1 ]; then

@@ -35,8 +35,12 @@ for IMAGE in $IMAGE_NAMES; do
 	docker image rm -f "${IMAGE}:${EBMS_VERSION}" 2>/dev/null || true
 
 	for TARGET_ARCH in $ARCH_LIST; do
-		docker image rm -f "${REPO}${IMAGE}:${EBMS_MAJOR_VERSION}-${TARGET_ARCH}" 2>/dev/null || true
 		docker image rm -f "${REPO}${IMAGE}:${EBMS_VERSION}-${TARGET_ARCH}" 2>/dev/null || true
-		docker image rm -f "${REPO}${IMAGE}:latest-${TARGET_ARCH}" 2>/dev/null || true
+		# floating tags may or may not exist for this version (pre-release
+		# never publishes them); rm -f || true covers both
+		# shellcheck disable=SC2086
+		for TAG in ${EBMS_FLOATING_TAGS} latest; do
+			docker image rm -f "${REPO}${IMAGE}:${TAG}-${TARGET_ARCH}" 2>/dev/null || true
+		done
 	done
 done

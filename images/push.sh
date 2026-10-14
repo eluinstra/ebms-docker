@@ -33,8 +33,13 @@ esac
 
 for TARGET_ARCH in $ARCH_LIST; do
 	for IMAGE in $IMAGE_NAMES; do
-		docker image push "${REPO}${IMAGE}:${EBMS_MAJOR_VERSION}-${TARGET_ARCH}"
 		docker image push "${REPO}${IMAGE}:${EBMS_VERSION}-${TARGET_ARCH}"
-		docker image push "${REPO}${IMAGE}:latest-${TARGET_ARCH}"
+		# the floating tags (<major>.<minor>, latest) only for a stable
+		# release: EBMS_FLOATING_TAGS is empty for a pre-release (env.sh).
+		# Unquoted on purpose: empty must expand to nothing.
+		# shellcheck disable=SC2086
+		for TAG in ${EBMS_FLOATING_TAGS}; do
+			docker image push "${REPO}${IMAGE}:${TAG}-${TARGET_ARCH}"
+		done
 	done
 done

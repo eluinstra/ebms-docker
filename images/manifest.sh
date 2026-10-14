@@ -6,7 +6,11 @@ export BASE_DIR=`dirname $(realpath $0)`
 . $BASE_DIR/env.sh
 
 for IMAGE in $IMAGE_NAMES; do
-  for TAG in "$EBMS_MAJOR_VERSION" "$EBMS_VERSION" "latest"; do
+  # a pre-release publishes only its own version tag: EBMS_FLOATING_TAGS is
+  # empty then, keeping <major>.<minor> and latest on the last stable release
+  # (env.sh). Unquoted on purpose: empty must expand to nothing.
+  # shellcheck disable=SC2086
+  for TAG in "$EBMS_VERSION" ${EBMS_FLOATING_TAGS}; do
     TARGET="${REPO}${IMAGE}:${TAG}"
 
     docker manifest rm "$TARGET" >/dev/null 2>&1 || true
