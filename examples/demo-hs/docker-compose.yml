@@ -119,7 +119,7 @@ services:
         #       curl -k -X POST -H \"Content-Type: text/plain\" --data @cpa.xml https://overheid:8443/service/rest/v19/cpas?overwrite=true
         #     "
   activemq:
-    image: apache/activemq-classic:6.1.8
+    image: apache/activemq-classic:6.2.0
     ports:
       - "8161:8161"
       # - "61616:61616"
